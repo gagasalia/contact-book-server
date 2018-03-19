@@ -29,7 +29,6 @@ app.use(bodyParser.json());
 app.set('superSecret', CommonUtils.appSecret);
 
 
-
 /*express.static is a built in middleware function to serve static files.
  We are telling express server public folder is the place to look for the static files
 */
@@ -46,7 +45,7 @@ app.get('/', (req, res) => {
 app.use(function (req, res, next) {
 	if (CommonUtils.allowAnonimous(req)) {
 		//TODO check if authorized already to redirect 
-		if (getToken(req)){
+		if (CommonUtils.getToken(req)){
 			//Token exists but we are on anonimous page
 			return res.status(403).send({
 				success: false,

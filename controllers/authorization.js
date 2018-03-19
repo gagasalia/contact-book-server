@@ -8,7 +8,43 @@ const bcrypt = require('bcrypt');
 
 
 router.post('/recover', function (req, res) {
+    let data = req.body;
+    let requiredFields=["mobile", "answer", "password", "confirmPassword"];
+    let missingFields = requiredFields.filter(item => {
+        if(!data[item]) {
+            return true;    
+        } 
+    });
+
+    if (missingFields.length) {
+        return  res.json({ success: false, message: `Required fields are missing: ${missingFields.join(', ')}` });
+    }
+
     //TODO implement password recovery.
+    let mobile = data.mobile;
+    let secretQuestionAnswer = data.answer;
+    let password = data.password;
+    let confirmPassword = data.confirmPassword; 
+    //console.log(mobile, secretQuestionAnswer);
+    dbConnection.selectInDb('select u.Id from User as u inner join UserSecretQuestion as sq on u.Id = sq.UserId where u.Mobile = ? and sq.Answer = ?', [mobile, secretQuestionAnswer], function(result){
+        console.log(result);
+        if (result.length){
+            var userId = result[0].Id;
+            let passwordHash = bcrypt.hashSync(password, 10);
+            dbConnection.updateInDb('update User set PasswordHash = ? where Id = ?', [passwordHash, userId]);
+            res.json({
+                    success: true,
+                    message: 'Password updated!',
+            });
+            return res;
+        }else{
+            res.json({
+                    success: false,
+                    message: 'incorrect secret question answer!',
+            });
+            return res;
+        } 
+    });
 });
 
 
@@ -53,6 +89,5 @@ router.post('/authenticate', function (req, res) { //this will issue token for v
 function getUserId(mobileNumber, password, callback) {
     dbConnection.selectInDb('select Id, PasswordHash from User where Mobile = ?', [mobileNumber], callback);
 }
-
 
 module.exports = router;
