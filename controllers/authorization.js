@@ -49,7 +49,7 @@ router.post('/recover', function (req, res) {
 
 
 router.post('/authenticate', function (req, res) { //this will issue token for valid users  
-    var username = req.body.user;
+    var username = req.body.phoneNumber;
     var password = req.body.password;
     var isUserFound = false;
     var foundUser = {};

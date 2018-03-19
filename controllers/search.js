@@ -15,10 +15,6 @@ router.post('/', (req, res, next) => {
   });
 
   let curUserId = CommonUtils.getUserId(req);
-
-  if (missingFields.length || data['keyword'].length<3) {
-    return  res.json({ success: false, message: `Required field must be at least 3 symbols: keyword` });
-  }
   
   var name = "%"+data['keyword']+"%";
   let searchResults;

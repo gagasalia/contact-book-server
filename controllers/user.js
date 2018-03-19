@@ -8,7 +8,7 @@ const CommonUtils = require('../utils/CommonUtils');
 router.post('/addContact', (req, res, next) => {
   let curUserId = CommonUtils.getUserId(req);
   let data = req.body;
-  let requiredFields=["firstName","phoneNumber"];
+  let requiredFields=["firstName","lastName","phoneNumber"];
   let missingFields = requiredFields.filter(item => {
     if(!data[item]) {
       return true;

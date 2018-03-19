@@ -17,7 +17,9 @@ function getUserId(req){
 }
 
 function allowAnonimous(req){
+  console.log(req.path);
   var path = req.path;
+  
   if (path === '/api/auth/authenticate' 
     || path === '/api/auth/recover'
     || path === '/api/registration' ){
