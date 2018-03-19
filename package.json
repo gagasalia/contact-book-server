@@ -1,0 +1,21 @@
+{
+  "name": "contact-book-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "author": "Gaga Salia",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^1.0.3",
+    "body-parser": "1.18.2",
+    "cors": "2.8.4",
+    "express": "4.16.3",
+    "jsonwebtoken": "^8.2.0",
+    "mongoose": "5.0.10",
+    "sequelize": "^4.37.1",
+    "sqlite3": "^4.0.0"
+  }
+}
