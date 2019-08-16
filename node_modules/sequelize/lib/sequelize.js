@@ -451,7 +451,7 @@ class Sequelize {
 
     let bindParameters;
 
-    return retry(retryParameters => Promise.try(() => {
+    return Promise.resolve(retry(retryParameters => Promise.try(() => {
       const isFirstTry = retryParameters.current === 1;
 
       if (options.instance && !options.model) {
@@ -565,7 +565,7 @@ class Sequelize {
             return this.connectionManager.releaseConnection(connection);
           }
         });
-    }), retryOptions);
+    }), retryOptions));
   }
 
   /**
@@ -941,7 +941,7 @@ class Sequelize {
    *
    * ```js
    * sequelize.transaction().then(transaction => {
-   *   return User.find(..., {transaction})
+   *   return User.findOne(..., {transaction})
    *     .then(user => user.updateAttributes(..., {transaction}))
    *     .then(() => transaction.commit())
    *     .catch(() => transaction.rollback());
@@ -952,7 +952,7 @@ class Sequelize {
    *
    * ```js
    * sequelize.transaction(transaction => { // Note that we use a callback rather than a promise.then()
-   *   return User.find(..., {transaction})
+   *   return User.findOne(..., {transaction})
    *     .then(user => user.updateAttributes(..., {transaction}))
    * }).then(() => {
    *   // Committed
@@ -1161,7 +1161,11 @@ Sequelize.prototype.literal = Sequelize.asIs = Sequelize.prototype.asIs = Sequel
 Sequelize.prototype.and = Sequelize.and;
 Sequelize.prototype.or = Sequelize.or;
 Sequelize.prototype.json = Sequelize.json;
-Sequelize.prototype.where = Sequelize.condition = Sequelize.prototype.condition = Sequelize.where;
+Sequelize.prototype.where = Sequelize.where;
+Sequelize.condition = Sequelize.prototype.condition = function () {
+  Utils.deprecate('Sequelize.condition has been deprecated, please use Sequelize.where instead');
+  return Sequelize.where.apply(this, arguments);
+};
 Sequelize.prototype.validate = Sequelize.prototype.authenticate;
 
 /**

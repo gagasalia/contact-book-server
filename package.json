@@ -1,5 +1,5 @@
 {
-  "name": "contact-book-api",
+  "name": "portfolio-api",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -9,13 +9,13 @@
   "author": "Gaga Salia",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^1.0.3",
+    "bcrypt": "^3.0.6",
     "body-parser": "1.18.2",
     "cors": "2.8.4",
     "express": "4.16.3",
-    "jsonwebtoken": "^8.2.0",
-    "mongoose": "5.0.10",
-    "sequelize": "^4.37.1",
-    "sqlite3": "^4.0.0"
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.5.2",
+    "sequelize": "^4.43.2",
+    "sqlite3": "^4.0.6"
   }
 }
