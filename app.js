@@ -59,7 +59,7 @@ app.use(function (req, res, next) {
 		// check header or url parameters or post parameters for token  
 		var token = CommonUtils.getToken(req);
 		// decode token  
-		if (token) {
+		if (token) {z
 			// verifies secret and checks exp
 			var secret = new Buffer(app.get('superSecret'), 'base64');
 			jwt.verify(token, secret, function (err, decoded) {
