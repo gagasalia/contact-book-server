@@ -15,7 +15,7 @@
     "express": "4.16.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.5.2",
-    "sequelize": "^4.43.2",
+    "sequelize": "^5.15.1",
     "sqlite3": "^4.0.6"
   }
 }
